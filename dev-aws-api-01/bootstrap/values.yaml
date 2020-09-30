@@ -6,3 +6,4 @@ names:
   nginx_public: nginx-public
   nginx_private: nginx-private
   grafana: grafana
+  rbac: rbac
