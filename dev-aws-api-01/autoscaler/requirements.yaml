@@ -1,4 +1,5 @@
 dependencies:
-- name: autoscaler
+- name: cluster-autoscaler-chart
   version: 1.0.3
+  # repository: https://github.com/kubernetes/autoscaler.git
   repository: https://kubernetes.github.io/autoscaler
