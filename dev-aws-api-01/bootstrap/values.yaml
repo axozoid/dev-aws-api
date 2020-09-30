@@ -1,7 +1,0 @@
-cluster: https://kubernetes.default.svc
-project: default
-
-names:
-  argocd: argocd
-  nginx_public: nginx-public
-  nginx_private: nginx-private
