@@ -10,7 +10,7 @@ spec:
 
   destination:
     server: {{ .Values.cluster }}
-    namespace: {{ .Values.names.nginx_public}}
+    namespace: {{ .Values.names.grafana}}
 
   syncPolicy:
     automated:
