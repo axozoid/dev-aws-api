@@ -12,8 +12,9 @@ spec:
     helm:
       valueFiles:
       - values.yaml
-    path: dev-aws-api-01/cluster-apps
+    path: dev-aws-api-01/bootstrap
     repoURL: https://github.com/axozoid/k8s-clusters.git
     targetRevision: HEAD
   syncPolicy:
-    automated: {}
+    automated:
+      selfHeal: true
