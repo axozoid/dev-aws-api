@@ -23,7 +23,7 @@ spec:
   source:
     chart: nginx-ingress
     repoURL: https://kubernetes-charts.storage.googleapis.com/
-    targetRevision: 1.34.2
+    targetRevision: 1.34.1
 
     helm:
       version: v3
