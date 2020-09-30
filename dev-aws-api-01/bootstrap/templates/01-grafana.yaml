@@ -24,5 +24,7 @@ spec:
     path: dev-aws-api-01/grafana
     repoURL: 'https://github.com/axozoid/k8s-clusters.git'
     targetRevision: dev-2
+    helm:
+      version: v3
 
 
