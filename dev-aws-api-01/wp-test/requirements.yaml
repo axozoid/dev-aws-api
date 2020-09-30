@@ -1,4 +1,0 @@
-dependencies:
-- name: wordpress
-  version: 9.6.4
-  repository: https://charts.bitnami.com/bitnam

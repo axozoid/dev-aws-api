@@ -7,4 +7,4 @@ names:
   nginx_private: nginx-private
   grafana: grafana
   rbac: rbac
-  wp: wp-test
+  autoscaler: autoscaler

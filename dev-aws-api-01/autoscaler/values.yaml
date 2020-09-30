@@ -1,0 +1,2 @@
+autoscaler:
+  replicaCount: 2
