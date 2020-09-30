@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-api-aws-01
+  namespace: argocd
+spec:
+  destination:
+    namespace: default
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    helm:
+      valueFiles:
+      - values.yaml
+    path: dev-api-aws-01/cluster-apps
+    repoURL: https://github.com/axozoid/k8s-clusters.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated: {}
