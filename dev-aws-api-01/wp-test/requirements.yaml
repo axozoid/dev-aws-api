@@ -1,0 +1,4 @@
+dependencies:
+- name: wordpress
+  version: 9.6.4
+  repository: https://github.com/bitnami/charts

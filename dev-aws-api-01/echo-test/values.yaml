@@ -1,2 +1,0 @@
-echo-test:
-  image.tag: "0.4.1"

@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: {{ .Values.names.echo}}
+  name: {{ .Values.names.wp }}
   namespace: {{ .Values.names.argocd}}
   finalizers:
   - resources-finalizer.argocd.argoproj.io
@@ -10,7 +10,7 @@ spec:
 
   destination:
     server: {{ .Values.cluster }}
-    namespace: {{ .Values.names.echo}}
+    namespace: {{ .Values.names.wp }}
 
   syncPolicy:
     automated:
@@ -21,7 +21,7 @@ spec:
     - CreateNamespace=true
 
   source:
-    path: dev-aws-api-01/echo-test
+    path: dev-aws-api-01/wp-test
     repoURL: 'https://github.com/axozoid/k8s-clusters.git'
     targetRevision: dev-2
     helm:
