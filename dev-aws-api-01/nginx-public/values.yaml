@@ -1,0 +1,50 @@
+nginx-ingress:
+  controller:
+    name: controller
+    config:
+      enable-vts-status: "true"
+      force-ssl-redirect: "true"
+      hsts: "true"
+      hsts-include-subdomains: "true"
+      http-snippet: |
+        add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+        add_header X-Frame-Options "DENY";
+        add_header Content-Security-Policy "frame-ancestors 'none'";
+      proxy-read-timeout: "150"
+      server-tokens: "false"
+      ssl-ciphers: EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH:AES128-SHA;
+      ssl-redirect: "true"
+      use-proxy-protocol: "false"
+      use-forwarded-headers: "true"
+
+    #resources:
+    #  limits:
+    #    cpu: 100m
+    #    memory: 90Mi
+    #  requests:
+    #    cpu: 100m
+    #    memory: 90Mi
+
+    service:
+      enabled: true
+
+      annotations:
+        service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+        service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: "3600"
+        service.beta.kubernetes.io/aws-load-balancer-ssl-ports: https
+      targetPorts:
+        http: http
+        https: http
+
+    metrics:
+      port: 10254
+      enabled: true
+
+      service:
+        annotations:
+          prometheus.io/scrape: "true"
+          prometheus.io/port: "10254"
+
+  defaultBackend:
+    enabled: true
+    name: default-backend
