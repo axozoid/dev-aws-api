@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: {{ .Values.names.nginx-public}}
+  name: {{ .Values.names.nginx_public}}
   namespace: {{ .Values.names.argocd}}
   finalizers:
   - resources-finalizer.argocd.argoproj.io
@@ -10,7 +10,7 @@ spec:
 
   destination:
     server: {{ .Values.cluster }}
-    namespace: {{ .Values.names.nginx-public}}
+    namespace: {{ .Values.names.nginx_public}}
 
   syncPolicy:
     automated:
