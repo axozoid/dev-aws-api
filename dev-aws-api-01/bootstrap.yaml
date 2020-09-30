@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: dev-api-aws-01
+  name: dev-aws-api-01
   namespace: argocd
 spec:
   destination:
@@ -12,7 +12,7 @@ spec:
     helm:
       valueFiles:
       - values.yaml
-    path: dev-api-aws-01/cluster-apps
+    path: dev-aws-api-01/cluster-apps
     repoURL: https://github.com/axozoid/k8s-clusters.git
     targetRevision: HEAD
   syncPolicy:
