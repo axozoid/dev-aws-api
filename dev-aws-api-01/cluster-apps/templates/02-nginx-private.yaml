@@ -1,0 +1,91 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .Values.names.nginx_private}}
+  namespace: {{ .Values.names.argocd}}
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{ .Values.project }}
+
+  destination:
+    server: {{ .Values.cluster }}
+    namespace: {{ .Values.names.nginx_private}}
+
+  syncPolicy:
+    automated: # automated sync by default retries failed attempts 5 times with following delays between attempts ( 5s, 10s, 20s, 40s, 80s ); retry controlled using `retry` field.
+      prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
+      selfHeal: true # Specifies if partial app sync should be executed when resources are changed only in target Kubernetes cluster and no git change detected ( false by default ).
+    syncOptions:     # Sync options which modifies sync behavior
+    - Validate=false # disables resource validation (equivalent to 'kubectl apply --validate=true')
+    - CreateNamespace=true # Namespace Auto-Creation ensures that namespace specified as the application destination exists in the destination cluster.
+
+  source:
+    chart: nginx-ingress
+    repoURL: https://kubernetes-charts.storage.googleapis.com/
+    targetRevision: 1.34.2
+
+    helm:
+      version: v3
+
+      # # Extra parameters to set (same as setting through values.yaml, but these take precedence)
+      # parameters:
+      # - name:  service.type
+      #   value: LoadBalancer
+
+      # Helm values files for overriding values in the helm chart
+      # The path is relative to the spec.source.path directory defined above
+      # valueFiles:
+      # - values.yaml
+
+      # Values file as block file
+      values: |
+        controller:
+          name: controller
+          config:
+            enable-vts-status: "true"
+            force-ssl-redirect: "true"
+            hsts: "true"
+            hsts-include-subdomains: "true"
+            http-snippet: |
+              add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+              add_header X-Frame-Options "DENY";
+              add_header Content-Security-Policy "frame-ancestors 'none'";
+            proxy-read-timeout: "150"
+            server-tokens: "false"
+            ssl-ciphers: EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH:AES128-SHA;
+            ssl-redirect: "true"
+            use-proxy-protocol: "false"
+            use-forwarded-headers: "true"
+
+          #resources:
+          #  limits:
+          #    cpu: 100m
+          #    memory: 90Mi
+          #  requests:
+          #    cpu: 100m
+          #    memory: 90Mi
+
+          service:
+            enabled: true
+
+            annotations:
+              service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+              service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: "3600"
+              service.beta.kubernetes.io/aws-load-balancer-ssl-ports: https
+            targetPorts:
+              http: http
+              https: http
+
+          metrics:
+            port: 10254
+            enabled: true
+
+            service:
+              annotations:
+                prometheus.io/scrape: "true"
+                prometheus.io/port: "10254"
+
+        defaultBackend:
+          enabled: true
+          name: default-backend
