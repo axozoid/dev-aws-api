@@ -26,3 +26,5 @@ spec:
     targetRevision: dev-2
     helm:
       version: v3
+      valueFiles:
+      - values.yaml
