@@ -1,0 +1,13 @@
+# allow "edit" level for namespace "ns-hz-app-X"
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: rb-k8s-dev-ns-2
+  namespace: ns-2
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: edit
+subjects:
+- kind: User
+  name: k8s-dev
