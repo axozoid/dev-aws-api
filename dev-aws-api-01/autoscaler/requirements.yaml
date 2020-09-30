@@ -1,5 +1,5 @@
 dependencies:
-- name: cluster-autoscaler-chart
-  version: 1.0.3
+- name: cluster-autoscaler
+  version: 8.0.0
   # repository: https://github.com/kubernetes/autoscaler.git
-  repository: https://kubernetes.github.io/autoscaler
+  repository: https://kubernetes-charts.storage.googleapis.com

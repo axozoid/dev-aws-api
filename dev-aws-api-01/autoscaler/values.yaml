@@ -1,2 +1,2 @@
-autoscaler:
+cluster-autoscaler:
   replicaCount: 2
