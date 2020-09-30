@@ -1,0 +1,4 @@
+dependencies:
+- name: echo-test
+  version: 0.3.0
+  repository: https://ealenn.github.io/charts
