@@ -43,4 +43,5 @@ spec:
         injector:
           enabled: false
         server:
-          enabled: true
+          dev:
+            enabled: true
