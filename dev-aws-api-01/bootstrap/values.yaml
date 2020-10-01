@@ -7,3 +7,4 @@ names:
   nginx_private: nginx-private
   cluster_autoscaler: cluster-autoscaler
   external_secrets: kube-external-secrets
+  vault: vault
