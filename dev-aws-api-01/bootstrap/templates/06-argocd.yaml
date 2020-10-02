@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .Values.names.argocd}}
+  namespace: {{ .Values.names.argocd}}
+  # finalizers:
+  # - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{ .Values.project }}
+
+  destination:
+    server: {{ .Values.cluster }}
+    namespace: {{ .Values.names.argocd}}
+
+  syncPolicy:
+    automated: 
+      selfHeal: true # Specifies if partial app sync should be executed when resources are changed only in target Kubernetes cluster and no git change detected ( false by default ).
+    syncOptions:     # Sync options which modifies sync behavior
+    - Validate=false # disables resource validation (equivalent to 'kubectl apply --validate=true')
+
+  source:
+    path: dev-aws-api-01/apps/argocd
+    repoURL: https://github.com/axozoid/k8s-clusters.git
