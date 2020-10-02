@@ -21,3 +21,4 @@ spec:
   source:
     path: dev-aws-api-01/apps/argocd
     repoURL: https://github.com/axozoid/k8s-clusters.git
+    targetRevision: dev
